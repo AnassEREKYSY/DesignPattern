@@ -1,16 +1,20 @@
 package characters;
 
+import strategies.IAttackStrategy;
+
 public class Enemy {
     private String name;
     private int healthPoints;
     private int attackPoints;
     private int defensePoints;
+    private IAttackStrategy attackStrategy;
 
-    public Enemy(String name, int healthPoints, int attackPoints, int defensePoints) {
+    public Enemy(String name, int healthPoints, int attackPoints, int defensePoints, IAttackStrategy attackStrategy) {
         this.name = name;
         this.healthPoints = healthPoints;
         this.attackPoints = attackPoints;
         this.defensePoints = defensePoints;
+        this.attackStrategy=attackStrategy;
     }
 
     public String getName() {
@@ -54,8 +58,14 @@ public class Enemy {
     }
 
     public void attack(Character player) {
-        int damage = Math.max(0, attackPoints - player.getDefensePoints());
-        player.takeDamage(damage);
+        int damage = Math.max(0, getAttackPoints());
+        if (damage > 0) {
+            player.takeDamage(damage);
+        } else {
+            // If the calculated damage is zero or negative, apply a minimum damage
+            player.takeDamage(1);
+            damage = 1;
+        }
         System.out.println(name + " attaque ! " + player.getName() + " subit " + damage + " points de dégâts.");
     }
 }

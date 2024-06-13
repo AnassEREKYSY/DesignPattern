@@ -6,7 +6,6 @@ import strategies.IAttackStrategy;
 public abstract class Character {
     protected String name;
     protected int healthPoints;
-    protected int attackPoints;
     protected int defensePoints;
     protected IAttackStrategy attackStrategy;
 
@@ -25,12 +24,6 @@ public abstract class Character {
     }
     public void setHealthPoints(int healthPoints) {
             this.healthPoints = healthPoints;
-    }
-    public int getAttackPoints() {
-        return attackPoints;
-    }
-    public void setAttackPoints(int attackPoints) {
-        this.attackPoints = attackPoints;
     }
     public int getDefensePoints() {
             return defensePoints;

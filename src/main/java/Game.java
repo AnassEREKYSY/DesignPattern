@@ -1,7 +1,6 @@
 import characters.Character;
 import characters.Enemy;
 import factories.CharacterFactory;
-import factories.EnemyFactory;
 import manager.GameManager;
 import strategies.BowAttack;
 import strategies.MagicAttack;
@@ -25,6 +24,11 @@ public class Game {
         for (int i = 0; i < 10; i++) {
             Enemy enemy = generateEnemyForRound(i + 1);
             simulateCombatRound(i + 1, playerCharacter, enemy, scanner, gameManager);
+
+            if (!playerCharacter.isAlive()) {
+                System.out.println("Game Over! You were defeated by " + enemy.getName());
+                break;
+            }
         }
 
         displayCombatHistory(gameManager);
@@ -33,7 +37,7 @@ public class Game {
     }
 
     private static Enemy generateEnemyForRound(int roundNumber) {
-        return new Enemy("Enemy " + roundNumber, 30 + (int)(Math.random() * 20), 5 + (int)(Math.random() * 5), 2 + (int)(Math.random() * 3));
+        return new Enemy("Enemy " + roundNumber, 30 + (int)(Math.random() * 20), 10 + (int)(Math.random() * 5), 2 + (int)(Math.random() * 3), new SwordAttack());
     }
 
     private static void simulateCombatRound(int roundNumber, Character playerCharacter, Enemy enemy, Scanner scanner, GameManager gameManager) {
